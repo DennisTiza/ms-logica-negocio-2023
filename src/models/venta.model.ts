@@ -3,7 +3,18 @@ import {Cliente} from './cliente.model';
 import {Producto} from './producto.model';
 import {VentaProducto} from './venta-producto.model';
 
-@model()
+@model({
+  settings: {
+    foreignKeys: {
+      fk_venta_cliente_id: {
+        name: 'fk_venta_cliente_id',
+        entity: 'Cliente',
+        entityKey: 'id',
+        foreignKey: 'clienteId'
+      }
+    }
+  }
+})
 export class Venta extends Entity {
   @property({
     type: 'number',
@@ -25,10 +36,10 @@ export class Venta extends Entity {
   fecha: string;
 
   @property({
-    type: 'string',
+    type: 'boolean',
     required: true,
   })
-  notificada: string;
+  notificada: boolean;
 
   @belongsTo(() => Cliente)
   clienteId: number;
